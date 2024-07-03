@@ -11,6 +11,7 @@ import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import StickyNote2OutlinedIcon from '@mui/icons-material/StickyNote2Outlined';
 import SmartToyOutlinedIcon from '@mui/icons-material/SmartToyOutlined';
 import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
+import PieChartOutlinedIcon from '@mui/icons-material/PieChartOutlined';
 import BarChartOutlinedIcon from '@mui/icons-material/BarChartOutlined';
 import MenuOutlinedIcon from '@mui/icons-material/MenuOutlined';
 import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
@@ -66,6 +67,9 @@ const ProSidebar = () => {
                 "& .ps-menuitem-root" : {
                     padding: "5px 20px 5px 20px !important",
                 },
+                "& .ps-menu-button" : {
+                    padding: "0 !important",
+                },
                 "& .ps-menu-button:hover": {
                     color: "#868dfb !important",
                     background: `${colors.primary[400]} !important`
@@ -111,7 +115,7 @@ const ProSidebar = () => {
                                         alt="profile-user"
                                         width="100px"
                                         height="100px"
-                                        src={`../../../assets/user.png`}
+                                        src={`https://th.bing.com/th/id/OIP.KGmDcv-hBZoHXItvt8kNQwHaHo?rs=1&pid=ImgDetMain`}
                                         style={{ cursor: "pointer", borderRadius: "50%"}} 
                                         />
                                 </Box>
@@ -124,10 +128,10 @@ const ProSidebar = () => {
                                         fontWeight="bold"
                                         sx={{ m: "10px 0 0 0"}}
                                     >
-                                        Admin
+                                        Admin Name
                                     </Typography>
                                     <Typography fontFamily={`"Source Sans 3", sans-serif`} variant="h5" color={colors.greenAccent[500]}>
-                                        VPI Admin
+                                    VPI Notebook Managment
                                     </Typography>
                                 </Box>
                             </Box>
@@ -143,6 +147,14 @@ const ProSidebar = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />
+                        <Typography
+                            variant="h6"
+                            color={colors.grey[300]}
+                            fontFamily={`"Source Sans 3", sans-serif`}
+                            sx={{ m: "15px 0 5px 20px"}}
+                            >
+                            Manager
+                        </Typography>
                          <Item 
                             title="Users Managment"
                             to="users-managment"
@@ -157,17 +169,18 @@ const ProSidebar = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />
+                        <Typography
+                            variant="h6"
+                            color={colors.grey[300]}
+                            fontFamily={`"Source Sans 3", sans-serif`}
+                            sx={{ m: "15px 0 5px 20px"}}
+                            >
+                            Botchat
+                        </Typography>
                          <Item 
                             title="Assistants"
                             to="assitants"
                             icon={<SmartToyOutlinedIcon />}
-                            selected={selected}
-                            setSelected={setSelected}
-                        />
-                         <Item 
-                            title="Report"
-                            to="report-data"
-                            icon={<BarChartOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
@@ -182,6 +195,28 @@ const ProSidebar = () => {
                             title="Feedback"
                             to="feedback"
                             icon={<FeedbackOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                        <Typography
+                            variant="h6"
+                            color={colors.grey[300]}
+                            fontFamily={`"Source Sans 3", sans-serif`}
+                            sx={{ m: "15px 0 5px 20px"}}
+                            >
+                            Report
+                        </Typography>
+                         <Item 
+                            title="Column Chart"
+                            to="column-chart"
+                            icon={<BarChartOutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                        <Item 
+                            title="Pie Chart"
+                            to="pie-chart"
+                            icon={<PieChartOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />

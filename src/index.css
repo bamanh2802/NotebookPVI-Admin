@@ -10,6 +10,11 @@ body,
   font-family: "Source Sans 3", sans-serif !important;
 }
 
+.MuiTypography-root, .MuiInputBase-input{
+  font-family: "Source Sans 3", sans-serif !important;
+
+}
+
 .app {
   display: flex;
   position: relative;
