@@ -3,6 +3,8 @@ import { tokens } from "../theme";
 export const mockDataTeam = [
   {
     id: 1,
+    timeUsage: 100,
+    totalResourceUsage: 50,
     username: "Jon Snow",
     email: "jonsnow@gmail.com",
     notebooks: 10,
@@ -12,6 +14,8 @@ export const mockDataTeam = [
   },
   {
     id: 2,
+    timeUsage: 100,
+    totalResourceUsage: 50,
     username: "Cersei Lannister",
     email: "cerseilannister@gmail.com",
     notebooks: 10,
@@ -21,6 +25,8 @@ export const mockDataTeam = [
   },
   {
     id: 3,
+    timeUsage: 100,
+    totalResourceUsage: 50,
     username: "Jaime Lannister",
     email: "jaimelannister@gmail.com",
     notebooks: 10,
@@ -30,6 +36,8 @@ export const mockDataTeam = [
   },
   {
     id: 4,
+    timeUsage: 100,
+    totalResourceUsage: 50,
     username: "Anya Stark",
     email: "anyastark@gmail.com",
     notebooks: 10,
@@ -39,6 +47,8 @@ export const mockDataTeam = [
   },
   {
     id: 5,
+    timeUsage: 100,
+    totalResourceUsage: 50,
     username: "Daenerys Targaryen",
     email: "daenerystargaryen@gmail.com",
     notebooks: 10,
@@ -48,8 +58,10 @@ export const mockDataTeam = [
   },
   {
     id: 6,
+    timeUsage: 100,
+    totalResourceUsage: 50,
     username: "Ever Melisandre",
-    email: "evermelisandre@gmail.com",,
+    email: "evermelisandre@gmail.com",
     notebooks: 10,
     notes: 100,
     sources: 100,
@@ -57,6 +69,8 @@ export const mockDataTeam = [
   },
   {
     id: 7,
+    timeUsage: 100,
+    totalResourceUsage: 50,
     username: "Ferrara Clifford",
     email: "ferraraclifford@gmail.com",
     notebooks: 10,
@@ -66,6 +80,8 @@ export const mockDataTeam = [
   },
   {
     id: 8,
+    timeUsage: 100,
+    totalResourceUsage: 50,
     username: "Rossini Frances",
     email: "rossinifrances@gmail.com",
     notebooks: 10,
@@ -75,6 +91,8 @@ export const mockDataTeam = [
   },
   {
     id: 9,
+    timeUsage: 100,
+    totalResourceUsage: 50,
     username: "Harvey Roxie",
     email: "harveyroxie@gmail.com",
     notebooks: 10,
@@ -83,6 +101,125 @@ export const mockDataTeam = [
     role: "admin",
   },
 ];
+
+export const mockDataNotebooks = [
+  {
+    userId: 1,
+    userName: "Người dùng 1",
+    id: 1,
+    notes: 4,
+    createAt: '20/1/2024',
+    sources: 2,
+    name: "Notebook 1",
+  },
+  {
+    userId: 1,
+    userName: "Người dùng 1",
+    id: 2,
+    notes: 4,
+    createAt: '17/1/2024',
+    sources: 2,
+    name: "Notebook 2"
+  },
+  {
+    userId: 1,
+    userName: "Người dùng 1",
+    id: 3,
+    notes: 4,
+    createAt: '17/1/2024',
+    sources: 2,
+    name: "Notebook 3"
+  },
+  {
+    userId: 1,
+    userName: "Người dùng 1",
+    id: 4,
+    notes: 4,
+    createAt: '21/1/2024',
+    sources: 2,
+    name: "Notebook 4"
+  },
+  {
+    userId: 3,
+    userName: "Người dùng 3",
+    id: 5,
+    notes: 4,
+    createAt: '21/1/2024',
+    sources: 2,
+    name: "Notebook 4"
+  },
+  {
+    userId: 2,
+    userName: "Người dùng 2",
+    id: 6,
+    notes: 6,
+    createAt: '29/1/2024',
+    sources: 2,
+    name: "Notebook 1"
+  },
+  {
+    userId: 2,
+    userName: "Người dùng 2",
+    id: 7,
+    notes: 7,
+    createAt: '20/1/2023',
+    sources: 2,
+    name: "Notebook 2"
+  },
+  {
+    userId: 2,
+    userName: "Người dùng 2",
+    id: 8,
+    notes: 8,
+    createAt: '20/4/2024',
+    sources: 2,
+    name: "Notebook 3"
+  },
+  {
+    userId: 2,
+    userName: "Người dùng 2",
+    id: 9,
+    notes: 4,
+    createAt: '20/2/2024',
+    sources: 2,
+    name: "Notebook 4"
+  }
+]
+
+export const mockDataNotes = [
+  {
+    id: 1,
+    notebooksId: 1,
+    name: "Note 1",
+    content: "ngày hôm qua là như thế đấy",
+    pinAt: "20/2/24",
+    sources: ['source1.docs', 'source2.pdf']
+  },
+  {
+    id: 2,
+    notebooksId: 1,
+    name: "Note 2",
+    content: "ngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấy",
+    pinAt: "20/2/24",
+    sources: ['source1.docs', 'source2.pdf']
+  },
+  {
+    id: 3,
+    notebooksId: 2,
+    name: "Note 2",
+    content: "ngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấy 123",
+    pinAt: "20/2/24",
+    sources: ['source1.docs', 'source2.pdf']
+  },
+  {
+    id: 4,
+    notebooksId: 3,
+    name: "Note 3",
+    content: "ngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấy 1231 23",
+    pinAt: "20/2/24",
+    sources: ['souce1.docs', 'source2.pdf']
+  }
+]
 
 export const mockDataContacts = [
   {

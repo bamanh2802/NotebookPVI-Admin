@@ -52,11 +52,11 @@ const ProSidebar = () => {
 
     return(
         <Box
-            minWidth="300px !important"
             sx= {{
                 "& .ps-sidebar-root" : {
                     height: '100vh',
-                    width: '100%'
+                    width: '100%',
+                    border: "none !important"
                 },
                 "& .ps-sidebar-container": {
                     background: `${colors.primary[400]} !important`,
@@ -165,6 +165,13 @@ const ProSidebar = () => {
                          <Item 
                             title="Notebooks Managment"
                             to="notebooks-managment"
+                            icon={<StickyNote2OutlinedIcon />}
+                            selected={selected}
+                            setSelected={setSelected}
+                        />
+                         <Item 
+                            title="Create Account"
+                            to="create-account"
                             icon={<StickyNote2OutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}

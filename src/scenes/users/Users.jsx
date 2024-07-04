@@ -1,5 +1,5 @@
 import { Typography, Box, useTheme } from "@mui/material";
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataTeam } from '../../data/mockData';
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
@@ -10,7 +10,6 @@ import Header from "../../components/Header";
 const Users = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    console.log(mockDataTeam)
 
     const columns = [
         { field: "id", headerName: "ID"}, 
@@ -18,41 +17,71 @@ const Users = () => {
         { field: "email", headerName: "Email", flex: 1}, 
         { field: "notebooks", headerName: "Notebooks"}, 
         { field: "notes", headerName: "Notes"}, 
-        { field: "sources", headerName: "Sources"}, 
-        { field: "role", headerName: "Role", renderCell: ({ row:{access} }) => {
+        { field: "role", headerName: "Role", renderCell: ({ row:{role} }) => {
             return (
                 <Box 
                 width="60%"
-                m="0 auto"
+                m="0 0"
                 p="5px"
                 display="flex"
-                justifyContent="center"
-                backgroundColor={
-                    access === "admin"
-                    ? colors.greenAccent[600]
-                    : colors.greenAccent[700]
-                }
+                justifyContent="flex-start"
+                alignItems="center"
+                // backgroundColor={
+                //     role === "admin"
+                //     ? colors.greenAccent[600]
+                //     : colors.greenAccent[700]
+                // }
+                height="100%"
                 borderRadius="4px"
                 >
-                    {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-                    {access === "user" && <LockOutlinedIcon />}
-                    {access === "manager" && <SecurityOutlinedIcon />}
+                    {role === "admin" && <AdminPanelSettingsOutlinedIcon />}
+                    {role === "user" && <LockOutlinedIcon />}
+                    {role === "manager" && <SecurityOutlinedIcon />}
+                    <Typography color={colors.grey[100]} sx={{ ml: "5px"}}>
+                        {role}
+                    </Typography>
                 </Box>
             )
         }}, 
         { field: "timeUsage", headerName: "Total Time Usage", flex: 1}, 
         { field: "totalResourceUsage", headerName: "Total Resource Usage", flex: 1}, 
-
         
     ]
-
     return(
-        <Box>
+        <Box m="20px">
             <Header title="User Managment" subtitle="Managing User Infomation" />
-            <Box>
-                <DataGrid>
+            <Box 
+                m="40px 0 0 0 "
+                height="75vh"
+                sx={{
+                    "& .MuiDataGrid-root" : {
+                        border: "none"
+                    },
+                    "& .MuiDataGrid-cell":{
+                        border: "none !important"
+                    },
+                    "& .name-column-cell": {
+                        color: `${colors.greenAccent[300]} !important`
+                    },
+                    "& .css-yrdy0g-MuiDataGrid-columnHeaderRow": {
+                        backgroundColor: `${colors.blueAccent[700]} !important`,
+                        borderBottom: "none"
+                    },
+                    "& .MuiDataGrid-virtualScroller": {
+                        backgroundColor: colors.primary[400]
+                    },
+                    "& .MuiDataGrid-footerContainer": {
+                        borderTop: "none !important",
+                        backgroundColor: colors.blueAccent[700]
+                    },
+                    "& .css-tgsonj":{
+                        border: "none !important"
+                    },
+                }}
+            >
+                <DataGrid
                     rows={mockDataTeam}
-                    columns={columns}
+                    columns={columns}>
                 </DataGrid>
             </Box>
         </Box>

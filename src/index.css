@@ -10,7 +10,13 @@ body,
   font-family: "Source Sans 3", sans-serif !important;
 }
 
-.MuiTypography-root, .MuiInputBase-input{
+.MuiTypography-root, 
+.MuiInputBase-input,
+.MuiDataGrid-columnHeaderTitle,
+.MuiDataGrid-cell,
+.MuiBox-root, .MuiFilledInput-root,
+.MuiButtonBase-root
+{
   font-family: "Source Sans 3", sans-serif !important;
 
 }
@@ -35,3 +41,4 @@ body,
 ::-webkit-scrollbar-track:hover {
   background: #555;
 }
+
