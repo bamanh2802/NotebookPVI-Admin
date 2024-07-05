@@ -65,7 +65,7 @@ const ProSidebar = () => {
                     background: "transparent !important"
                 },
                 "& .ps-menuitem-root" : {
-                    padding: "5px 20px 5px 20px !important",
+                    padding: "2px 20px 2px 20px !important",
                 },
                 "& .ps-menu-button" : {
                     padding: "0 !important",

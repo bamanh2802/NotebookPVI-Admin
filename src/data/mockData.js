@@ -10,6 +10,7 @@ export const mockDataTeam = [
     notebooks: 10,
     notes: 100,
     sources: 100,
+    password: "testingpassword",
     role: "admin",
   },
   {
@@ -21,6 +22,7 @@ export const mockDataTeam = [
     notebooks: 10,
     notes: 100,
     sources: 100,
+    password: "testingpassword",
     role: "manager",
   },
   {
@@ -32,6 +34,7 @@ export const mockDataTeam = [
     notebooks: 10,
     notes: 100,
     sources: 100,
+    password: "testingpassword",
     role: "user",
   },
   {
@@ -43,6 +46,7 @@ export const mockDataTeam = [
     notebooks: 10,
     notes: 100,
     sources: 100,
+    password: "testingpassword",
     role: "admin",
   },
   {
@@ -54,6 +58,7 @@ export const mockDataTeam = [
     notebooks: 10,
     notes: 100,
     sources: 100,
+    password: "testingpassword",
     role: "user",
   },
   {
@@ -65,6 +70,7 @@ export const mockDataTeam = [
     notebooks: 10,
     notes: 100,
     sources: 100,
+    password: "testingpassword",
     role: "manager",
   },
   {
@@ -76,6 +82,7 @@ export const mockDataTeam = [
     notebooks: 10,
     notes: 100,
     sources: 100,
+    password: "testingpassword",
     role: "user",
   },
   {
@@ -87,6 +94,7 @@ export const mockDataTeam = [
     notebooks: 10,
     notes: 100,
     sources: 100,
+    password: "testingpassword",
     role: "user",
   },
   {
@@ -98,6 +106,7 @@ export const mockDataTeam = [
     notebooks: 10,
     notes: 100,
     sources: 100,
+    password: "testingpassword",
     role: "admin",
   },
 ];

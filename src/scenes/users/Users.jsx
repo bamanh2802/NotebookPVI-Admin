@@ -6,10 +6,38 @@ import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettin
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
 import Header from "../../components/Header";
+import UserManager from "./UserManager";
+import { useState } from "react";
 
 const Users = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const [openUserManager, setIsOpenUserManager] = useState(false)
+    const [inititalValues, setInitialValues] = useState({});
+
+    
+
+    const handleSelectUser = (userSelected) => {
+        const user = mockDataTeam.find(user => user.id === userSelected.id)
+        const userValues = {
+            userName: user.username,
+            password: user.password,
+            email: user.email,
+            role: user.role,
+        }
+        setIsOpenUserManager(true)
+        setInitialValues(userValues)
+        console.log(userValues)
+    }
+
+    const handleStopPropagation = (event) => {
+        event.stopPropagation();
+        
+    }
+
+    const handleCloseUserManager = () => {
+        setIsOpenUserManager(false)
+    }
 
     const columns = [
         { field: "id", headerName: "ID"}, 
@@ -80,10 +108,41 @@ const Users = () => {
                 }}
             >
                 <DataGrid
+                    onRowClick={handleSelectUser}
                     rows={mockDataTeam}
                     columns={columns}>
                 </DataGrid>
             </Box>
+
+            {openUserManager && (
+                <Box 
+                    position="absolute"
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    bottom="0px"
+                    left="125px"
+                    width="100%"
+                    height="100%"
+                    backgroundColor="#3d3b3b61"
+                    onClick={handleCloseUserManager}
+                > 
+                    <Box
+                    onClick={handleStopPropagation}
+                    backgroundColor={`${colors.blueAccent[800]}`}
+                    minWidth="400px"
+                    >
+                        <Typography
+                            variant="h4"
+                            padding="16px 16px 0 16px"
+                        >
+                            Update User Info
+                        </Typography>
+                        <UserManager initialValues={inititalValues}/>    
+                    </Box>
+                    
+                </Box>
+            )}
         </Box>
     )
     

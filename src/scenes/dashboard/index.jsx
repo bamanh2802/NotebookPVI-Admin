@@ -189,7 +189,7 @@ const Dashboard = () => {
                 gridRow="span 2"
                 backgroundColor={colors.primary[400]}
             >
-                <Typography m="16px" variant="h4" fontWeight="600">
+                <Typography m="16px 16px 0px 16px" variant="h4" fontWeight="600">
                     Time Usage
                 </Typography>
                 <Box height="250px">

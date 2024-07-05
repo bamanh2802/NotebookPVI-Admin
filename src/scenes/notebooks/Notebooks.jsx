@@ -56,7 +56,7 @@ const Notebooks = () => {
         
     ]
     return(
-        <Box m="20px">
+        <Box m="20px" mt="0px">
             <Header title="Notebooks Managment" subtitle="Managing Notebooks and Notes" />
             <Box 
                 m="40px 0 0 0 "
