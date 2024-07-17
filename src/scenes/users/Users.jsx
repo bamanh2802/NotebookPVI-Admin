@@ -1,91 +1,103 @@
 import { Typography, Box, useTheme } from "@mui/material";
-import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataTeam } from '../../data/mockData';
 import AdminPanelSettingsOutlinedIcon from '@mui/icons-material/AdminPanelSettingsOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import SecurityOutlinedIcon from '@mui/icons-material/SecurityOutlined';
 import Header from "../../components/Header";
 import UserManager from "./UserManager";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getAllUsers } from "../../service/LoginService";
 
 const Users = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    const [openUserManager, setIsOpenUserManager] = useState(false)
-    const [inititalValues, setInitialValues] = useState({});
+    const [openUserManager, setIsOpenUserManager] = useState(false);
+    const [initialValues, setInitialValues] = useState({});
+    const [allUsers, setAllUsers] = useState([]);
 
-    
+    const fetchAllUsers = async () => {
+        try {
+            const data = await getAllUsers();
+            if (data.status_code === 200) {
+                // Thêm id vào mỗi user trong data.users
+                const usersWithId = data.users.map((user, index) => ({
+                    ...user,
+                    id: index + 1,
+                }));
+                setAllUsers(usersWithId);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        if (!openUserManager) {
+            fetchAllUsers();
+        }
+    }, [openUserManager]);
 
     const handleSelectUser = (userSelected) => {
-        const user = mockDataTeam.find(user => user.id === userSelected.id)
+        const user = allUsers.find(user => user.id === userSelected.id);
         const userValues = {
             userName: user.username,
             password: user.password,
             email: user.email,
             role: user.role,
-        }
-        setIsOpenUserManager(true)
-        setInitialValues(userValues)
-        console.log(userValues)
-    }
+            userId: user.user_id
+        };
+        setIsOpenUserManager(true);
+        setInitialValues(userValues);
+    };
 
     const handleStopPropagation = (event) => {
         event.stopPropagation();
-        
-    }
+    };
 
     const handleCloseUserManager = () => {
-        setIsOpenUserManager(false)
-    }
+        setIsOpenUserManager(false);
+    };
 
     const columns = [
-        { field: "id", headerName: "ID"}, 
-        { field: "username", headerName: "User Name", flex: 1, cellClassName:"name-column-cell"}, 
-        { field: "email", headerName: "Email", flex: 1}, 
-        { field: "notebooks", headerName: "Notebooks"}, 
-        { field: "notes", headerName: "Notes"}, 
-        { field: "role", headerName: "Role", renderCell: ({ row:{role} }) => {
+        { field: "id", headerName: "ID" }, 
+        { field: "username", headerName: "User Name", flex: 1, cellClassName: "name-column-cell" }, 
+        { field: "email", headerName: "Email", flex: 1 }, 
+        { field: "created_at", headerName: "Create At", flex: 1 }, 
+        { field: "role", headerName: "Role", renderCell: ({ row: { role } }) => {
             return (
                 <Box 
-                width="60%"
-                m="0 0"
-                p="5px"
-                display="flex"
-                justifyContent="flex-start"
-                alignItems="center"
-                // backgroundColor={
-                //     role === "admin"
-                //     ? colors.greenAccent[600]
-                //     : colors.greenAccent[700]
-                // }
-                height="100%"
-                borderRadius="4px"
+                    width="60%"
+                    display="flex"
+                    alignItems="center"
+                    p="5px"
+                    borderRadius="4px"
                 >
                     {role === "admin" && <AdminPanelSettingsOutlinedIcon />}
                     {role === "user" && <LockOutlinedIcon />}
                     {role === "manager" && <SecurityOutlinedIcon />}
-                    <Typography color={colors.grey[100]} sx={{ ml: "5px"}}>
+                    <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
                         {role}
                     </Typography>
                 </Box>
-            )
-        }}, 
-        { field: "timeUsage", headerName: "Total Time Usage", flex: 1}, 
-        { field: "totalResourceUsage", headerName: "Total Resource Usage", flex: 1}, 
-        
-    ]
-    return(
+            );
+        } }, 
+        { field: "total_chat_token", headerName: "Total Chat Token" }, 
+        { field: "total_time_used", headerName: "Total Time Usage" }, 
+        { field: "total_resource_used", headerName: "Total Resource Usage" }
+    ];
+
+    return (
         <Box m="20px">
-            <Header title="User Managment" subtitle="Managing User Infomation" />
+            <Header title="User Management" subtitle="Managing User Information" />
             <Box 
-                m="40px 0 0 0 "
+                m="40px 0 0 0"
                 height="75vh"
                 sx={{
-                    "& .MuiDataGrid-root" : {
+                    "& .MuiDataGrid-root": {
                         border: "none"
                     },
-                    "& .MuiDataGrid-cell":{
+                    "& .MuiDataGrid-cell": {
                         border: "none !important"
                     },
                     "& .name-column-cell": {
@@ -102,15 +114,16 @@ const Users = () => {
                         borderTop: "none !important",
                         backgroundColor: colors.blueAccent[700]
                     },
-                    "& .css-tgsonj":{
+                    "& .css-tgsonj": {
                         border: "none !important"
                     },
                 }}
             >
                 <DataGrid
                     onRowClick={handleSelectUser}
-                    rows={mockDataTeam}
-                    columns={columns}>
+                    rows={allUsers}
+                    columns={columns}
+                >
                 </DataGrid>
             </Box>
 
@@ -128,9 +141,9 @@ const Users = () => {
                     onClick={handleCloseUserManager}
                 > 
                     <Box
-                    onClick={handleStopPropagation}
-                    backgroundColor={`${colors.blueAccent[800]}`}
-                    minWidth="400px"
+                        onClick={handleStopPropagation}
+                        backgroundColor={`${colors.blueAccent[800]}`}
+                        minWidth="400px"
                     >
                         <Typography
                             variant="h4"
@@ -138,14 +151,12 @@ const Users = () => {
                         >
                             Update User Info
                         </Typography>
-                        <UserManager initialValues={inititalValues}/>    
+                        <UserManager initialValues={initialValues} onClose={handleCloseUserManager} />    
                     </Box>
-                    
                 </Box>
             )}
         </Box>
-    )
-    
+    );
 }
 
-export default Users; 
+export default Users;

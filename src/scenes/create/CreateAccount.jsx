@@ -3,6 +3,9 @@ import { Typography, Box, TextField, Select, MenuItem } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup"
 import useMediaQuery from "@mui/material/useMediaQuery"
+import { createAccount } from "../../service/LoginService";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const initialValues = {
@@ -25,8 +28,43 @@ const CreateAcctount = () => {
 
     const isNonMobile = useMediaQuery("(min-width: 600px")
 
-    const handleFormSubmit = (values) => {
-        console.log(values);
+   
+    const handleFormSubmit = async (values) => {
+        try {
+          const data = await createAccount(values.userName, values.password, values.email);
+          console.log(data)
+          if(data.status_code === 201) {
+            values.userName = "";
+            values.password = "";
+            values.confirmPassword = "";
+            values.email = "";
+            values.role = "user";
+            toast.success('Account successfully created!', {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              });
+          } 
+        } catch (e) {
+          console.log(e)
+          if(e.response.data.status_code) {
+            toast.error('Username already exists!', {
+              position: "top-right",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+              });
+          }
+        }
     }
 
     return(
@@ -144,6 +182,7 @@ const CreateAcctount = () => {
   )}
 </Formik>
 
+  <ToastContainer />
     </Box>
 
     )

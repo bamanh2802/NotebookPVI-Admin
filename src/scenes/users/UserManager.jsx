@@ -7,22 +7,45 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { ColorizeSharp } from "@mui/icons-material";
+import Button from '@mui/material/Button';
+import { changeInfoUser, deleteUserById } from "../../service/LoginService";
 
 
 const userScheme = yup.object().shape({
     userName: yup.string().required("required"),
     password: yup.string().required("required"),
-    confirmPassword: yup.string().oneOf([yup.ref('password'), null], 'Passwords must match').required('Confirm password is required'),
     email: yup.string().email("Invalid email address").required("Email is required"),
     role: yup.string().oneOf(["user", "manager", "admin"]).required("required"),
 })
 
 
-const UserManager = ({ initialValues }) => {
+const UserManager = ({ initialValues, onClose }) => {
     const isNonMobile = useMediaQuery("(min-width: 600px")
+    const [newPassword, setNewPassword] = useState(initialValues.password)
 
-    const handleFormSubmit = (values) => {
-        console.log(values);
+
+    const handleFormSubmit = async (values) => {
+        console.log(values.userId)
+
+        if(newPassword !== values.password) {
+            setNewPassword(values.password)
+        } else {
+            setNewPassword('')
+        }
+        try {
+            const data = await changeInfoUser(values.userId, values.userName, newPassword, values.email)
+            console.log(data)
+            if(data.status_code === 200) {
+                onClose();
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const handleDeleteUser = async () => {
+
     }
 
     const [showPassword, setShowPassword] = useState(false);
@@ -123,26 +146,28 @@ const UserManager = ({ initialValues }) => {
                     <MenuItem value="manager">Manager</MenuItem>
                     <MenuItem value="user">User</MenuItem>
                     </Select>
-                <Box
-                    sx={{
-                        gridColumn: "span 2",
-                    display: "block",
-                    padding: "10px 20px",
-                    backgroundColor: "#1976d2",
-                    color: "#fff",
-                    border: "none",
-                    borderRadius: "4px",
-                    cursor: "pointer",
-                    textAlign: "center",
-                    "&:hover": {
-                        backgroundColor: "#1565c0",
-                    },
-                    }}
-                    component="button"
-                    type="submit"
-                >
-                    Update
-                </Box>
+                    <Box
+                        display='flex'
+                        justifyContent='space-around'
+                        sx={{ gridColumn: "span 4" }}
+                    >
+                        <Button
+                        variant="contained"
+                        color="error"
+                        onClick={handleDeleteUser}
+                        type="submit"
+                        >
+                        Delete
+                        </Button>
+                        
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        type="submit"
+                        >
+                        Update
+                    </Button>
+                    </Box>
                 </Box>
                 </form>
             )}

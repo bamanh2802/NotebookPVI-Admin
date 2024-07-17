@@ -49,6 +49,7 @@ const ProSidebar = () => {
     const colors = tokens(theme.palette.mode);
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [selected, setSelected] = useState("Dashboard")
+    const userName = localStorage.getItem('username')
 
     return(
         <Box
@@ -128,10 +129,10 @@ const ProSidebar = () => {
                                         fontWeight="bold"
                                         sx={{ m: "10px 0 0 0"}}
                                     >
-                                        Admin Name
+                                        {userName}
                                     </Typography>
                                     <Typography fontFamily={`"Source Sans 3", sans-serif`} variant="h5" color={colors.greenAccent[500]}>
-                                    VPI Notebook Managment
+                                    VPI Notebook Management
                                     </Typography>
                                 </Box>
                             </Box>
@@ -156,15 +157,15 @@ const ProSidebar = () => {
                             Manager
                         </Typography>
                          <Item 
-                            title="Users Managment"
-                            to="users-managment"
+                            title="Users Management"
+                            to="users-management"
                             icon={<PersonOutlineOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
                         />
                          <Item 
-                            title="Notebooks Managment"
-                            to="notebooks-managment"
+                            title="Notebooks Management"
+                            to="notebooks-management"
                             icon={<StickyNote2OutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
