@@ -2,45 +2,61 @@ import React from 'react';
 import { ResponsivePie } from '@nivo/pie';
 
 const data = [
-  { id: 'userMessage', label: 'User Messages', value: 230 },
-  { id: 'botSuggest', label: 'Bot Suggestions', value: 150 },
+  { id: 'User 1', value: 150 },
+  { id: 'User 2', value: 200 },
+  { id: 'User 3', value: 75 },
+  { id: 'User 4', value: 300 },
+  { id: 'User 5', value: 120 },
 ];
 
 const PieChart = () => (
-    <ResponsivePie
-        data={data}
-        margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-        innerRadius={0.5}
-        padAngle={0.7}
-        cornerRadius={3}
-        colors={{ scheme: 'paired' }}
-        borderWidth={1}
-        borderColor={{ from: 'color', modifiers: [['darker', 0.2]] }}
-        radialLabelsSkipAngle={10}
-        radialLabelsTextXOffset={6}
-        radialLabelsTextColor="#333333"
-        radialLabelsLinkOffset={0}
-        radialLabelsLinkDiagonalLength={16}
-        radialLabelsLinkHorizontalLength={24}
-        radialLabelsLinkStrokeWidth={1}
-        radialLabelsLinkColor={{ from: 'color' }}
-        slicesLabelsSkipAngle={10}
-        slicesLabelsTextColor="#333333"
-        animate={true}
-        motionStiffness={90}
-        motionDamping={15}
-        legends={[
+  <ResponsivePie
+  data={data}
+  margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
+  innerRadius={0.5}
+  padAngle={0.7}
+  cornerRadius={3}
+  activeOuterRadiusOffset={8}
+  borderWidth={1}
+  borderColor={{
+    from: 'color',
+    modifiers: [['darker', 0.2]],
+  }}
+  arcLinkLabelsSkipAngle={10}
+  arcLinkLabelsTextColor="#333333"
+  arcLinkLabelsThickness={2}
+  arcLinkLabelsColor={{ from: 'color' }}
+  arcLabelsSkipAngle={10}
+  arcLabelsTextColor={{
+    from: 'color',
+    modifiers: [['darker', 2]],
+  }}
+  legends={[
+    {
+      anchor: 'bottom',
+      direction: 'row',
+      justify: false,
+      translateX: 0,
+      translateY: 56,
+      itemsSpacing: 0,
+      itemWidth: 100,
+      itemHeight: 18,
+      itemTextColor: '#999',
+      itemDirection: 'left-to-right',
+      itemOpacity: 1,
+      symbolSize: 18,
+      symbolShape: 'circle',
+      effects: [
         {
-            anchor: 'bottom',
-            direction: 'row',
-            translateY: 56,
-            itemWidth: 100,
-            itemHeight: 18,
-            itemTextColor: '#999',
-            symbolShape: 'circle',
-        }
-        ]}
-    />
+          on: 'hover',
+          style: {
+            itemTextColor: '#000',
+          },
+        },
+      ],
+    },
+  ]}
+/>
   );
   
 

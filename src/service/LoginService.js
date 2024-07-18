@@ -72,3 +72,71 @@ export async function deleteUserById(userId) {
     })
     return response
 }
+
+export async function getTotalToken() {
+  const response = await axios.get(`${API_URL}/get_total_token_used_everyday`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true
+  })
+  return response.data
+}
+
+export async function getTotalResourceUsed() {
+  const response = await axios.get(`${API_URL}/get_total_resource_used_everyday`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true
+  })
+  return response.data
+}
+
+export async function getNewUserIn7Days() {
+  const response = await axios.get(`${API_URL}/get_total_new_user_in_7_days`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true
+  })
+  return response.data
+}
+
+export async function getTotalResourceUsedByUser() {
+  const response = await axios.get(`${API_URL}/get_total_resource_used_by_user`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true
+  })
+  return response.data
+}
+
+export async function getTotalLoginByDay() {
+  const response = await axios.get(`${API_URL}/get_total_login_by_day`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true
+  })
+  return response.data
+}
+export async function getTotalTimeUsedEveryday() {
+  const response = await axios.get(`${API_URL}/get_total_time_used_everyday`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true
+  })
+  return response.data
+}
+export async function getTotalUserEveryday() {
+  const response = await axios.get(`${API_URL}/get_total_user_everyday`, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    withCredentials: true
+  })
+  return response.data
+}

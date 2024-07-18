@@ -45,7 +45,13 @@ const UserManager = ({ initialValues, onClose }) => {
     }
 
     const handleDeleteUser = async () => {
-
+        console.log(initialValues)
+        try {
+            const data = await deleteUserById(initialValues.userId)
+            console.log(data)
+        } catch(e) {
+            console.log(e)
+        }
     }
 
     const [showPassword, setShowPassword] = useState(false);
@@ -155,7 +161,6 @@ const UserManager = ({ initialValues, onClose }) => {
                         variant="contained"
                         color="error"
                         onClick={handleDeleteUser}
-                        type="submit"
                         >
                         Delete
                         </Button>
@@ -172,6 +177,10 @@ const UserManager = ({ initialValues, onClose }) => {
                 </form>
             )}
             </Formik>
+
+        <Box>
+            
+        </Box>
     
         </Box>
     
