@@ -206,7 +206,7 @@ const ProSidebar = () => {
                             selected={selected}
                             setSelected={setSelected}
                         />
-                        <Typography
+                        {/* <Typography
                             variant="h6"
                             color={colors.grey[300]}
                             fontFamily={`"Source Sans 3", sans-serif`}
@@ -227,7 +227,7 @@ const ProSidebar = () => {
                             icon={<PieChartOutlinedIcon />}
                             selected={selected}
                             setSelected={setSelected}
-                        />
+                        /> */}
                     </Box>
 
                 </Menu>

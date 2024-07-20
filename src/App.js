@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     const session = localStorage.getItem('session');
-    if (!session) {
+    if (session) {
       setIsLoggedIn(true);
     } else {
       setIsLoggedIn(false);

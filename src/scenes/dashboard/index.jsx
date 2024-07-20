@@ -83,19 +83,7 @@ const Dashboard = () => {
     <Box m="20px">
         <Box height="100%" display="flex" justifyContent="space-between" alignItems="center">
         <Header title='DASHBOARD' subtitle='Admin Dashboard Surface'/>
-        <Button 
-                sx={{ 
-                    backgroundColor: colors.blueAccent[700], 
-                    color: colors.grey[100], 
-                    fontSize:"14px",
-                    fontWeight: "bold",
-                    padding: "7px 20px",
-                    
-                }}
-            >
-                <DownloadOutlinedIcon sx={{ mr:"10px"}}/>
-                Download Report
-            </Button>
+       
         </Box>
 
         {/* GRID */}
@@ -135,7 +123,7 @@ const Dashboard = () => {
 
                     <StatBox
                         title="1000"
-                        subtitle="Token"
+                        subtitle="Tokens"
                         increase="+7%"
                         icon = {
                             <TokenIcon sx={{ color: colors.greenAccent[600], fontSize: "26px"}}/>
@@ -183,40 +171,42 @@ const Dashboard = () => {
                 gridRow="span 3"
                 height='100%'
                 backgroundColor={colors.primary[400]}
+                position='relative'
             >
                 <Box
-                    mt="25px"
-                    p="0 30px"
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                >
-                    <Box position='absolute' mt='24px'>
-                        <Typography
-                            variant="h5"
-                            fontWeight="600"
-                            color={colors.grey[400]}
-                        >
-                            Total Message Timeline
-                        </Typography>
-                        <Typography
-                            variant="h3"
-                            fontWeight="500"
-                            color={colors.greenAccent[500]}
-                        >
-                            Total Message Timeline
-                        </Typography>
+                    position='absolute'
+                    width='100%'
+                    height='100%'
+                > 
+                    <Box
+                        m='16px 16px 0 16px'
+                        alignItems="center"
+                    >
+                        <Box position='absolute'>
+                            <Typography
+                                variant="h5"
+                                fontWeight="600"
+                                color={colors.grey[400]}
+                            >
+                                Total Message Timeline
+                            </Typography>
+                            <Typography
+                                variant="h3"
+                                fontWeight="500"
+                                color={colors.greenAccent[500]}
+                            >
+                                Total Message Timeline
+                            </Typography>
+                        </Box>
+
+                        
                     </Box>
 
-                    
-                </Box>
+                    <Box 
+                    height="180px" mt='40px'>
+                    <LineChart data={dataTrafic}/>
 
-                <Box 
-                height="206px" mt='40px'>
-                    {/* <BarChart /> */}
-                    {/* <LineChart data={dataTrafic} /> */}
-                <LineChart data={dataTrafic}/>
-
+                    </Box>
                 </Box>
 
                 </Box>
@@ -248,17 +238,20 @@ const Dashboard = () => {
 
                 {/* Row 3 */}
             <Box
+                position='relative'
                 gridColumn="span 8"
-                gridRow="span 4"
+                gridRow="span 3"
                 height='100%'
                 backgroundColor={colors.primary[400]}
             >
+              <Box position='absolute'  bottom='0px' height='100%' width='100%'>
                 <Typography m="16px 16px 0px 16px" 
-                    color={colors.greenAccent[500]}
-                variant="h4" fontWeight="600">
-                    Time Usage
-                </Typography>
-                <LineChart data={dataTimeUsage}/>
+                        color={colors.greenAccent[500]}
+                        variant="h4" fontWeight="600">
+                        Time Usage
+                    </Typography>
+                    <LineChart data={dataTimeUsage}/>
+              </Box>
 
             </Box>
             

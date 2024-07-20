@@ -19,6 +19,18 @@ export async function loginForm(username, password) {
       throw error; 
     }
   }
+  export async function LogoutAdmin() {
+    const response = await axios.post(`${API_URL}/logout`, {}, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      withCredentials: true
+  
+    });
+    return response;
+  } 
+
+
 
 export async function getAllUsers() {
     const response = await axios.get(`${API_URL}/get_users`, {

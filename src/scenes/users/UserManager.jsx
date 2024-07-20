@@ -1,4 +1,4 @@
-import { Typography, Box, TextField, Select, MenuItem } from "@mui/material";
+import { Typography, Box, TextField, Select, MenuItem, useTheme} from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup"
 import useMediaQuery from "@mui/material/useMediaQuery"
@@ -10,6 +10,8 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { ColorizeSharp } from "@mui/icons-material";
 import Button from '@mui/material/Button';
 import { changeInfoUser, deleteUserById } from "../../service/LoginService";
+import { tokens } from "../../theme";
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 
 
 const userScheme = yup.object().shape({
@@ -23,7 +25,9 @@ const userScheme = yup.object().shape({
 const UserManager = ({ initialValues, onClose }) => {
     const isNonMobile = useMediaQuery("(min-width: 600px")
     const [newPassword, setNewPassword] = useState(initialValues.password)
-
+    const [cofirmDeleteUser, setConfirmDeleteUser] = useState(false)
+    const theme = useTheme();
+    const colors = tokens(theme.palette.mode);
 
     const handleFormSubmit = async (values) => {
         console.log(values.userId)
@@ -46,12 +50,16 @@ const UserManager = ({ initialValues, onClose }) => {
 
     const handleDeleteUser = async () => {
         console.log(initialValues)
-        try {
-            const data = await deleteUserById(initialValues.userId)
-            console.log(data)
-        } catch(e) {
-            console.log(e)
-        }
+        // try {
+        //     const data = await deleteUserById(initialValues.userId)
+        //     if(data.status_code === 200) {
+        //         onClose();
+        //     }
+        //     console.log(data)
+        // } catch(e) {
+        //     console.log(e)
+        // }
+        setConfirmDeleteUser(true)
     }
 
     const [showPassword, setShowPassword] = useState(false);
@@ -181,6 +189,49 @@ const UserManager = ({ initialValues, onClose }) => {
         <Box>
             
         </Box>
+
+            {cofirmDeleteUser && (
+                <Box position='fixed'
+                    width='100%'
+                    height='100%'
+                    top='0px'
+                    left='0px'
+                    display='flex'
+                    justifyContent='center'
+                    alignItems='center'
+                    zIndex='100000'
+                >
+                   <Box 
+                    display='flex'
+                    justifyContent='center'
+                    alignItems='center'
+                    backgroundColor={colors.primary[400]}
+                   width="400px" height='200px' 
+                    flexDirection='column'
+                   >
+                    <Box> 
+                            <Typography
+                                variant="h3"
+                                display='flex'
+                                justifyContent='center'
+                                alignItems='center'
+                            >
+                                <DeleteOutlineOutlinedIcon margin='0 24px' sx={{ color: 'red' }} fontSize="large"/>Delete this user?
+                            </Typography>
+
+                        </Box>
+                        <Box>
+                            <Button>
+                                No
+                            </Button>
+                            <Button>
+                                Yes
+                            </Button>
+                        </Box>
+                   </Box>
+                </Box>
+
+            )}
     
         </Box>
     

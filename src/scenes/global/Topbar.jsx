@@ -1,5 +1,5 @@
 import { Box, IconButton, useTheme } from "@mui/material"
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import { ColorModeContext, tokens } from "../../theme";
 import styled from 'styled-components';
 import InputBase from '@mui/material/InputBase';
@@ -8,6 +8,9 @@ import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import Notification from "../../components/Notification";
+import Logout from "../../components/Logout";
 
 const styledBox = styled(Box)``;
 
@@ -15,8 +18,24 @@ const styledBox = styled(Box)``;
 const Topbar = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
-    console.log(theme.palette.mode)
     const colorMode = useContext(ColorModeContext);
+
+    const [toggleNotification, setToggleNotification] = useState(false)
+    const [toggleLogout, setToggleLogout] = useState(false)
+
+    const handleToggleNotification = () => {
+        setToggleNotification(!toggleNotification)
+        if(toggleLogout) {
+            setToggleLogout(false)
+        }
+    }
+
+    const handleToggleLogout = () => {
+        setToggleLogout(!toggleLogout)
+        if(toggleNotification) {
+            setToggleNotification(false)
+        }
+    }
 
 
 
@@ -46,7 +65,17 @@ const Topbar = () => {
                 <SettingsOutlinedIcon />
             </IconButton>
             <IconButton>
-                <PersonOutlineOutlinedIcon />
+                <NotificationsNoneOutlinedIcon onClick={handleToggleNotification}/>
+               
+                {toggleNotification && (
+                     <Notification />
+                )}
+            </IconButton>
+            <IconButton>
+                <PersonOutlineOutlinedIcon onClick={handleToggleLogout}/>
+                {toggleLogout && (
+                    <Logout />
+                )}
             </IconButton>
         </Box>
         </Box>
