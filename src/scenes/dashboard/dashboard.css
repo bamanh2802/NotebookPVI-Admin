@@ -6,21 +6,3 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     font-size: 12px;
   }
-  .linechart-controls-container{
-    position: relative;
-  }
-
-  .linechart-controls{
-    position: absolute;
-    top: -24px;
-    right: 24px;
-    z-index: 100;
-  }
-  /* .linechart-controls > button {
-    margin: 0 5px;
-    padding: 6px 12px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #a4a9fc;
-    border: none;
-  } */

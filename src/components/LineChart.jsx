@@ -32,8 +32,8 @@ const LineChart = ({data}) => {
   ];
 
   return (
-    <div className="linechart-controls-container">
-      <div className="linechart-controls">
+    <Box position='relative'>
+      <Box position='absolute' zIndex='1000' top='-24px' right='24px'>
         <Button sx={{ 
                     backgroundColor: colors.primary[500], 
                     color: colors.grey[900], 
@@ -61,7 +61,7 @@ const LineChart = ({data}) => {
                     borderRadius:'0px'
                     
                 }} onClick={() => setDays(90)}>90 Days</Button >
-      </div>
+      </Box>
       <div style={{ height: "250px" }}>
       <ResponsiveLine
           data={filteredData}
@@ -146,7 +146,7 @@ const LineChart = ({data}) => {
           tooltip={CustomTooltip}
         />
       </div>
-    </div>
+    </Box>
   );
 };
 
