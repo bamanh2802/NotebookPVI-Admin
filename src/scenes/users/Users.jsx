@@ -8,11 +8,16 @@ import Header from "../../components/Header";
 import UserManager from "./UserManager";
 import { useEffect, useState } from "react";
 import { getAllUsers } from "../../service/LoginService";
+import { ToastContainer, toast } from 'react-toastify';
+import Grow from '@mui/material/Grow';
+import Fade from '@mui/material/Fade';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Users = () => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
     const [openUserManager, setIsOpenUserManager] = useState(false);
+    const [openUserManagerGrow, setIsOpenUserManagerGrow] = useState(false);
     const [initialValues, setInitialValues] = useState({});
     const [allUsers, setAllUsers] = useState([]);
 
@@ -38,6 +43,32 @@ const Users = () => {
         }
     }, [openUserManager]);
 
+    const popUpToast = (status, title) => {
+        if(status === 'success') {
+            toast.success(`${title}`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+        } else if (status === 'error') {
+            toast.error(`${title}`, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                });
+        }
+    }
+
     const handleSelectUser = (userSelected) => {
         const user = allUsers.find(user => user.id === userSelected.id);
         const userValues = {
@@ -47,8 +78,9 @@ const Users = () => {
             role: user.role,
             userId: user.user_id
         };
-        setIsOpenUserManager(true);
         setInitialValues(userValues);
+        setIsOpenUserManager(true);
+        setIsOpenUserManagerGrow(true)
     };
 
     const handleStopPropagation = (event) => {
@@ -56,7 +88,11 @@ const Users = () => {
     };
 
     const handleCloseUserManager = () => {
+        setIsOpenUserManagerGrow(false)
+        setTimeout(() => {
         setIsOpenUserManager(false);
+
+        },500)
     };
 
     const columns = [
@@ -127,34 +163,42 @@ const Users = () => {
                 </DataGrid>
             </Box>
 
+            
             {openUserManager && (
+            <Fade in={openUserManagerGrow}>
                 <Box 
-                    position="absolute"
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    bottom="0px"
-                    left="125px"
-                    width="100%"
-                    height="100%"
-                    backgroundColor="#3d3b3b61"
-                    onClick={handleCloseUserManager}
+                position="absolute"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                bottom="0px"
+                left="125px"
+                width="100%"
+                height="100%"
+                backgroundColor="#3d3b3b61"
+                onClick={handleCloseUserManager}
                 > 
-                    <Box
-                        onClick={handleStopPropagation}
-                        backgroundColor={`${colors.blueAccent[800]}`}
-                        minWidth="400px"
+                <Grow in={openUserManagerGrow}>
+                <Box
+                    onClick={handleStopPropagation}
+                    backgroundColor={`${colors.blueAccent[800]}`}
+                    minWidth="400px"
+                >
+                    <Typography
+                    variant="h4"
+                    padding="16px 16px 0 16px"
                     >
-                        <Typography
-                            variant="h4"
-                            padding="16px 16px 0 16px"
-                        >
-                            Update User Info
-                        </Typography>
-                        <UserManager initialValues={initialValues} onClose={handleCloseUserManager} />    
-                    </Box>
+                    Update User Info
+                    </Typography>
+                    <UserManager initialValues={initialValues} onClose={handleCloseUserManager} processStatus={popUpToast}/>    
                 </Box>
+                </Grow>
+                </Box>
+            </Fade>
             )}
+
+        <ToastContainer />
+
         </Box>
     );
 }

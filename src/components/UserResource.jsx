@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography } from '@mui/material';
 import { useTheme } from "@mui/material";
 import { tokens } from '../theme';
@@ -11,10 +11,13 @@ const usersData = [
   { name: 'User 5', resources: 120 },
 ];
 
-const UserResource = () => {
+const UserResource = ({ data }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette)
 
+    useEffect(() => {
+      data.sort((a, b) => b.total_resource_used - a.total_resource_used)
+    }, [data])
 
 
   return (
@@ -28,10 +31,10 @@ const UserResource = () => {
             </TableRow>
           </TableHead >
           <TableBody >
-            {usersData.map((user, index) => (
+            {data.map((user, index) => (
               <TableRow key={index} sx={{ backgroundColor: colors.primary[400] }}>
-                <TableCell>{user.name}</TableCell>
-                <TableCell>{(user.resources / 100).toFixed(2)}</TableCell> {/* Chia và định dạng số thập phân */}
+                <TableCell>{user.user_name}</TableCell>
+                <TableCell>{(user.total_resource_used)}</TableCell> {/* Chia và định dạng số thập phân */}
               </TableRow>
             ))}
           </TableBody>

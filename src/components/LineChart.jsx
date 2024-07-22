@@ -19,9 +19,14 @@ const LineChart = ({data}) => {
   const colors = tokens(theme.palette)
   const [days, setDays] = useState(30);
 
+  const legends = data[0].id + '';
+  console.log(legends)
+
+  console.log(data)
+
   const filteredData = [
     {
-      id: "tokens",
+      id: data[0].id,
       data: data[0].data.slice(-days),
     },
   ];
@@ -85,7 +90,7 @@ const LineChart = ({data}) => {
             tickSize: 5,
             tickPadding: 5,
             tickRotation: 0,
-            legend: "Tokens",
+            legend: legends,
             legendOffset: -40,
             legendPosition: "middle",
           }}

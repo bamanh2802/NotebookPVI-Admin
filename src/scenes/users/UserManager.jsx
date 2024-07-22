@@ -1,4 +1,4 @@
-import { Typography, Box, TextField, Select, MenuItem, useTheme} from "@mui/material";
+import { Typography, Box, TextField, Select, MenuItem, useTheme, Avatar } from "@mui/material";
 import { Formik } from "formik";
 import * as yup from "yup"
 import useMediaQuery from "@mui/material/useMediaQuery"
@@ -11,7 +11,10 @@ import { ColorizeSharp } from "@mui/icons-material";
 import Button from '@mui/material/Button';
 import { changeInfoUser, deleteUserById } from "../../service/LoginService";
 import { tokens } from "../../theme";
-import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Grow from '@mui/material/Grow';
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+
 
 
 const userScheme = yup.object().shape({
@@ -22,7 +25,7 @@ const userScheme = yup.object().shape({
 })
 
 
-const UserManager = ({ initialValues, onClose }) => {
+const UserManager = ({ initialValues, onClose, processStatus }) => {
     const isNonMobile = useMediaQuery("(min-width: 600px")
     const [newPassword, setNewPassword] = useState(initialValues.password)
     const [cofirmDeleteUser, setConfirmDeleteUser] = useState(false)
@@ -30,7 +33,6 @@ const UserManager = ({ initialValues, onClose }) => {
     const colors = tokens(theme.palette.mode);
 
     const handleFormSubmit = async (values) => {
-        console.log(values.userId)
 
         if(newPassword !== values.password) {
             setNewPassword(values.password)
@@ -42,24 +44,38 @@ const UserManager = ({ initialValues, onClose }) => {
             console.log(data)
             if(data.status_code === 200) {
                 onClose();
+                processStatus('success', 'Account updated successfully')
+
             }
         } catch (e) {
             console.log(e)
+            processStatus('error', 'Update information failed')
+            onClose();
         }
     }
 
+    const handleCancelDeleteUser = () => {
+        setConfirmDeleteUser(false)
+
+    }
+
     const handleDeleteUser = async () => {
-        console.log(initialValues)
-        // try {
-        //     const data = await deleteUserById(initialValues.userId)
-        //     if(data.status_code === 200) {
-        //         onClose();
-        //     }
-        //     console.log(data)
-        // } catch(e) {
-        //     console.log(e)
-        // }
         setConfirmDeleteUser(true)
+    }
+    const handleConfirmDeleteUser = async () => {
+        try {
+            const data = await deleteUserById(initialValues.userId)
+            if(data.status === 200) {
+                onClose();
+                setConfirmDeleteUser(true)
+                processStatus('success', 'Account deleted successfully')
+            }
+            console.log(data)
+        } catch(e) {
+            console.log(e)
+            processStatus('error', 'Delete information failed')
+            onClose();
+        }
     }
 
     const [showPassword, setShowPassword] = useState(false);
@@ -190,9 +206,9 @@ const UserManager = ({ initialValues, onClose }) => {
             
         </Box>
 
-            {cofirmDeleteUser && (
-                <Box position='fixed'
-                    width='100%'
+        <Grow in={cofirmDeleteUser}>
+        <Box position='fixed'
+                    width='calc(100% + 256px)'
                     height='100%'
                     top='0px'
                     left='0px'
@@ -200,38 +216,57 @@ const UserManager = ({ initialValues, onClose }) => {
                     justifyContent='center'
                     alignItems='center'
                     zIndex='100000'
+                    onClick={handleCancelDeleteUser}
                 >
                    <Box 
                     display='flex'
                     justifyContent='center'
                     alignItems='center'
                     backgroundColor={colors.primary[400]}
-                   width="400px" height='200px' 
                     flexDirection='column'
+                    onClick={(event) => {
+                        event.stopPropagation();
+                      }}
                    >
-                    <Box> 
+                    <Box display='flex'
+                        justifyContent='center'
+                        alignItems='center'
+                        flexDirection='column'
+                        padding='24px'
+                    > 
+                        <Avatar alt="Delete User" src="https://i.pinimg.com/originals/4a/3c/42/4a3c429dc8ab5496413c9150416ddcfe.png"/>
                             <Typography
                                 variant="h3"
                                 display='flex'
                                 justifyContent='center'
                                 alignItems='center'
+                                mb='8px'
                             >
-                                <DeleteOutlineOutlinedIcon margin='0 24px' sx={{ color: 'red' }} fontSize="large"/>Delete this user?
+                                Delete this user?
+                            </Typography>
+                            <Typography width='90%' textAlign='center'>
+                                This action cannot be undone. Are you sure you want to delete this user?
                             </Typography>
 
                         </Box>
-                        <Box>
-                            <Button>
-                                No
+                        <Box padding='24px 0px'  display='flex' justifyContent='space-around' width='60%'>
+                        <Button onClick={handleConfirmDeleteUser} color="error" variant="outlined" startIcon={<DeleteIcon />}>
+                            Delete
                             </Button>
-                            <Button>
-                                Yes
+                            <Button onClick={handleCancelDeleteUser} color="success" variant="outlined" endIcon={<CancelOutlinedIcon />}>
+                            Cancel
                             </Button>
                         </Box>
                    </Box>
                 </Box>
 
-            )}
+        </Grow>
+
+            {/* {cofirmDeleteUser && (
+               
+
+            )} */}
+            
     
         </Box>
     
