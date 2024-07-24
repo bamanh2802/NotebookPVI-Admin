@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Typography, Box, Button, IconButton, useTheme } from "@mui/material";
 import { ResponsiveLine } from "@nivo/line";
 import { tokens } from "../theme";
 import '../scenes/dashboard/dashboard.css'
+import CircularProgress from '@mui/material/CircularProgress';
 
 
 const CustomTooltip = ({ point }) => (
@@ -20,9 +21,15 @@ const LineChart = ({data}) => {
   const [days, setDays] = useState(30);
 
   const legends = data[0].id + '';
-  console.log(legends)
+  const [isLoadingData, setIsLoadingData] = useState(true);
 
-  console.log(data)
+  useEffect(()=> {
+    if(data[0].data[0]) {
+      setIsLoadingData(false)
+    } else {
+      setIsLoadingData(true)
+    }
+  }, [data])
 
   const filteredData = [
     {
@@ -32,7 +39,14 @@ const LineChart = ({data}) => {
   ];
 
   return (
-    <Box position='relative'>
+    <Box>
+      {
+        isLoadingData ? (
+          <Box height='250px' display='flex' justifyContent='center' alignItems='center'>
+            <CircularProgress color="success"/>
+          </Box>
+      ) : (
+        <Box>
       <Box position='absolute' zIndex='1000' top='-24px' right='24px'>
         <Button sx={{ 
                     backgroundColor: colors.primary[500], 
@@ -62,7 +76,7 @@ const LineChart = ({data}) => {
                     
                 }} onClick={() => setDays(90)}>90 Days</Button >
       </Box>
-      <div style={{ height: "250px" }}>
+      <Box style={{ height: "250px" }}>
       <ResponsiveLine
           data={filteredData}
           margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
@@ -145,7 +159,10 @@ const LineChart = ({data}) => {
           ]}
           tooltip={CustomTooltip}
         />
-      </div>
+      </Box>
+        </Box>
+      )
+      }
     </Box>
   );
 };

@@ -103,7 +103,7 @@ const Dashboard = () => {
 
 
     return(
-    <Box m="20px" overflow='auto'>
+    <Box m="20px" overflow='hidden'>
         <Box height="100%" display="flex" justifyContent="space-between" alignItems="center" >
         <Header title='DASHBOARD' subtitle='Admin Dashboard Surface'/>
        
@@ -209,14 +209,14 @@ const Dashboard = () => {
                                 fontWeight="600"
                                 color={colors.grey[400]}
                             >
-                                Total Message Timeline
+                                Total Resource Daily
                             </Typography>
                             <Typography
                                 variant="h3"
                                 fontWeight="500"
                                 color={colors.greenAccent[500]}
                             >
-                                Total Message Timeline
+                                Total Resource Daily
                             </Typography>
                         </Box>
 
@@ -250,7 +250,7 @@ const Dashboard = () => {
                         >
                             Resource Usage by User
                         </Typography>
-                    <Box maxHeight='300px' overflow='auto' padding="12px">
+                    <Box maxHeight='280px' overflow='auto' padding="12px">
                     <UserResource data={totalResourceByUser}/>
                     </Box>
                     <Box gridRow="span 3" height='280px' padding="12px">
@@ -282,14 +282,14 @@ const Dashboard = () => {
                                 fontWeight="600"
                                 color={colors.grey[400]}
                             >
-                                Total Message Timeline
+                                Total Tokens Daily
                             </Typography>
                             <Typography
                                 variant="h3"
                                 fontWeight="500"
                                 color={colors.greenAccent[500]}
                             >
-                                Total Message Timeline
+                                Total Tokens Daily
                             </Typography>
                         </Box>
 

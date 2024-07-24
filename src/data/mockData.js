@@ -200,7 +200,7 @@ export const mockDataNotes = [
     id: 1,
     notebooksId: 1,
     name: "Note 1",
-    content: "ngày hôm qua là như thế đấy",
+    content: "tetsy",
     pinAt: "20/2/24",
     sources: ['source1.docs', 'source2.pdf']
   },
@@ -208,7 +208,7 @@ export const mockDataNotes = [
     id: 2,
     notebooksId: 1,
     name: "Note 2",
-    content: "ngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấy",
+    content: "tetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsy",
     pinAt: "20/2/24",
     sources: ['source1.docs', 'source2.pdf']
   },
@@ -216,7 +216,7 @@ export const mockDataNotes = [
     id: 3,
     notebooksId: 2,
     name: "Note 2",
-    content: "ngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấy 123",
+    content: "tetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsy 123",
     pinAt: "20/2/24",
     sources: ['source1.docs', 'source2.pdf']
   },
@@ -224,7 +224,7 @@ export const mockDataNotes = [
     id: 4,
     notebooksId: 3,
     name: "Note 3",
-    content: "ngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấyngày hôm qua là như thế đấy 1231 23",
+    content: "tetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsytetsy 1231 23",
     pinAt: "20/2/24",
     sources: ['souce1.docs', 'source2.pdf']
   }
