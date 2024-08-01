@@ -24,11 +24,12 @@ const Logout = () => {
         <Box
             position='absolute'
             width='150px'
-            height='60px'
+            height='50px'
             top='36px' 
             right='12px'
             backgroundColor={colors.primary[600]}
             zIndex='10000'
+            borderRadius='16px'
         >
             <Box
                 display='flex'

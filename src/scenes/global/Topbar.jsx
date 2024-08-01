@@ -11,6 +11,7 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import Notification from "../../components/Notification";
 import Logout from "../../components/Logout";
+import Fade from '@mui/material/Fade';
 
 const styledBox = styled(Box)``;
 
@@ -64,12 +65,14 @@ const Topbar = () => {
             <IconButton>
                 <SettingsOutlinedIcon />
             </IconButton>
-            <IconButton>
+            <IconButton >
                 <NotificationsNoneOutlinedIcon onClick={handleToggleNotification}/>
-               
-                {toggleNotification && (
-                     <Notification />
-                )}
+                     <Fade in={toggleNotification}  unmountOnExit 
+                     >
+                        <Box>
+                            <Notification />
+                        </Box>
+                     </Fade>
             </IconButton>
             <IconButton>
                 <PersonOutlineOutlinedIcon onClick={handleToggleLogout}/>

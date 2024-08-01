@@ -1,5 +1,8 @@
 import Header from "../../components/Header";
-import { Typography, Box, Button, IconButton, useTheme } from "@mui/material";
+import { Typography, Box, Tab, useTheme } from "@mui/material";
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
 import { tokens } from "../../theme";
 import { useEffect, useState } from "react";
 import PersonIcon from '@mui/icons-material/Person';
@@ -15,7 +18,10 @@ import UserResource from "../../components/UserResource";
 import { getTotalToken, 
     getTotalResourceUsed, 
     getNewUserIn7Days, 
-    getTotalResourceUsedByUser 
+    getTotalResourceUsedByUser ,
+    getTotalUserEveryday,
+    getTotalTimeUsedEveryday,
+    getTotalLoginByDay
         } from "../../service/LoginService";
 import { DataArray } from "@mui/icons-material";
 
@@ -27,6 +33,26 @@ const Dashboard = () => {
     const [sumResource, setSumResource] = useState(-1)
     const [resourceIncrease, setResourceIncrease] = useState(-1)
     const [sumTimeUsed, setSumTimeUsed] = useState(-1)
+    const [totalUsers, setTotalUsers] = useState(-1)
+    const [increaseUsersByDay, setIncreaseUsersByDay] = useState(-1)
+    const [value, setValue] = useState('1');
+    const [totalTimeUsed, setTotalTimeUsed] = useState([
+        {
+            id: 'timeused',
+            data: []
+        }
+      ])
+
+    const [totalLogin, setTotalLogin] = useState(
+        [
+            {
+                id: 'logins',
+                data: []
+            }
+          ]
+    )
+
+    
     const [totalToken, setTotalToken] = useState([
         {
             id: 'tokens',
@@ -41,13 +67,18 @@ const Dashboard = () => {
     ]);
 
     const [totalResourceByUser, setTotalResourceByUser] = useState([])
-
+    const handleChange = (event, newValue) => {
+        setValue(newValue);
+    };
     const fetchData = async () => {
         try {
-          const [totalTokenData, totalResourceData, totalResourceByUserData] = await Promise.all([
+          const [totalTokenData, totalResourceData, totalResourceByUserData, totalUsers, totalTime, totalLogin] = await Promise.all([
             getTotalToken(),
             getTotalResourceUsed(),
             getTotalResourceUsedByUser(),
+            getTotalUserEveryday(),
+            getTotalTimeUsedEveryday(),
+            getTotalLoginByDay()
           ]);
     
           if (totalTokenData.status_code === 200) {
@@ -91,6 +122,35 @@ const Dashboard = () => {
             );
             setTotalResourceByUser(totalResourceByUserData.total_resource_used_by_user);
           }
+          if (totalUsers.status_code === 200) {
+            setTotalUsers(totalUsers.result.reduce((total, item) => total + item.num_user, 0))
+            setIncreaseUsersByDay(totalUsers.result[totalUsers.result.length - 1].num_user)
+        }
+
+        if(totalTime.status_code === 200) {
+            const timeUsed = totalTime.result.map((item) => ({
+                x: item.date,
+                y: item.time_usage,
+            }))
+            setTotalTimeUsed([
+                {
+                  id: 'time used',
+                  data: timeUsed,
+                },
+              ])
+        }  
+        if (totalLogin.status_code === 200) {
+            const outputLogin = totalLogin.total_login_by_day.map((item) => ({
+                x: item.date,
+                y: item.total_login
+            }))
+            setTotalLogin([
+                {
+                  id: 'access',
+                  data: outputLogin,
+                },
+              ])
+        }
         } catch (e) {
           console.log(e);
         }
@@ -128,9 +188,9 @@ const Dashboard = () => {
                 >
 
                     <StatBox
-                        title="230"
+                        title={totalUsers}
                         subtitle="Users"
-                        increase="+12%"
+                        increase={`+ ${increaseUsersByDay}`}
                         icon = {
                             <PersonIcon sx={{ color: colors.greenAccent[600], fontSize: "26px"}}/>
                         }
@@ -191,7 +251,7 @@ const Dashboard = () => {
                         {/* Row 2 */}
             <Box
                 gridColumn="span 8"
-                gridRow="span 3"
+                gridRow="span 4"
                 backgroundColor={colors.primary[400]}
                 position='relative'
             >
@@ -199,42 +259,165 @@ const Dashboard = () => {
                     width='100%'
                     height='100%'
                 > 
+                 <TabContext value={value}>
+                    <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                    <TabList textColor="secondary" onChange={handleChange} aria-label="lab API tabs example">
+                        <Tab label="Resources" value="1" />
+                        <Tab label="Tokens" value="2" />
+                        <Tab label="Time Usage" value="3" />
+                        <Tab label="Access" value="4" />
+                    </TabList>
+                    </Box>
+                    <TabPanel value="1">
+                        <Box
+                            alignItems="center"
+                        >
+                            <Box position='absolute' top='60px'  >
+                                <Typography
+                                    variant="h3"
+                                    fontWeight="500"
+                                    color={colors.greenAccent[500]}
+                                >
+                                    Total Resource Daily
+                                </Typography>
+                                <Typography
+                                    variant="h5"
+                                    fontWeight="600"
+                                    color={colors.grey[400]}
+                                >
+                                    Total Resource Daily
+                                </Typography>
+                               
+                            </Box>
+
+                            <Box 
+                                position='absolute'
+                                width='100%'
+                                top='100px'
+                                left='0px'
+                                height="180px" >
+                                <LineChart data={totalResource}/>
+
+                            </Box>
+                            
+                        </Box>
+                    </TabPanel>
+                    <TabPanel value="2">
                     <Box
-                        m='16px 16px 0 16px'
-                        alignItems="center"
-                    >
-                        <Box position='absolute'>
-                            <Typography
-                                variant="h5"
-                                fontWeight="600"
-                                color={colors.grey[400]}
-                            >
-                                Total Resource Daily
-                            </Typography>
-                            <Typography
-                                variant="h3"
-                                fontWeight="500"
-                                color={colors.greenAccent[500]}
-                            >
-                                Total Resource Daily
-                            </Typography>
+                        width='100%'
+                        height='100%'
+                    > 
+                        <Box
+                            alignItems="center"
+                        >
+                            <Box position='absolute' top='60px'>
+                                
+                                <Typography
+                                    variant="h3"
+                                    fontWeight="500"
+                                    color={colors.greenAccent[500]}
+                                >
+                                    Total Tokens Daily
+                                </Typography>
+                                <Typography
+                                    variant="h5"
+                                    fontWeight="600"
+                                    color={colors.grey[400]}
+                                >
+                                    Total Tokens Daily
+                                </Typography>
+                            </Box>
+
+                        <Box 
+                        position='absolute'
+                        width='100%'
+                        top='100px'
+                        left='0px'
+                        height="180px" >
+                        <LineChart data={totalToken}/>
+
+                        </Box>
+                            
                         </Box>
 
-                    <Box 
-                    position='absolute'
-                    width='100%'
-                    bottom='70px'
-                    left='0px'
-                    height="180px" >
-                    <LineChart data={totalResource}/>
+                    </Box>
+                    </TabPanel>
+                    <TabPanel value="3">
+                    <Box
+                            alignItems="center"
+                        >
+                            <Box position='absolute' top='60px'  >
+                                <Typography
+                                    variant="h3"
+                                    fontWeight="500"
+                                    color={colors.greenAccent[500]}
+                                >
+                                    Total Resource Daily
+                                </Typography>
+                                <Typography
+                                    variant="h5"
+                                    fontWeight="600"
+                                    color={colors.grey[400]}
+                                >
+                                    Total Resource Daily
+                                </Typography>
+                               
+                            </Box>
 
-                    </Box>
-                        
-                    </Box>
+                            <Box 
+                                position='absolute'
+                                width='100%'
+                                top='100px'
+                                left='0px'
+                                height="180px" >
+                                <LineChart data={totalTimeUsed}/>
+
+                            </Box>
+                            
+                        </Box>
+                    </TabPanel>
+                    <TabPanel value="4">
+                        <Box
+                            alignItems="center"
+                        >
+                            <Box position='absolute' top='60px'  >
+                                <Typography
+                                    variant="h3"
+                                    fontWeight="500"
+                                    color={colors.greenAccent[500]}
+                                >
+                                    Total Resource Daily
+                                </Typography>
+                                <Typography
+                                    variant="h5"
+                                    fontWeight="600"
+                                    color={colors.grey[400]}
+                                >
+                                    Total Resource Daily
+                                </Typography>
+                               
+                            </Box>
+
+                            <Box 
+                                position='absolute'
+                                width='100%'
+                                top='100px'
+                                left='0px'
+                                height="180px" >
+                                <LineChart data={totalLogin}/>
+
+                            </Box>
+                            
+                        </Box>
+                    </TabPanel>
+                </TabContext>
+                   
 
                 </Box>
 
                 </Box>
+
+
                 <Box 
                     gridColumn="span 4" 
                     gridRow="span 6"
@@ -264,48 +447,11 @@ const Dashboard = () => {
                 {/* Row 3 */}
                 <Box
                 gridColumn="span 8"
-                gridRow="span 3"
+                gridRow="span 2"
                 backgroundColor={colors.primary[400]}
                 position='relative'
             >
-                <Box
-                    width='100%'
-                    height='100%'
-                > 
-                    <Box
-                        m='16px 16px 0 16px'
-                        alignItems="center"
-                    >
-                        <Box position='absolute'>
-                            <Typography
-                                variant="h5"
-                                fontWeight="600"
-                                color={colors.grey[400]}
-                            >
-                                Total Tokens Daily
-                            </Typography>
-                            <Typography
-                                variant="h3"
-                                fontWeight="500"
-                                color={colors.greenAccent[500]}
-                            >
-                                Total Tokens Daily
-                            </Typography>
-                        </Box>
-
-                    <Box 
-                    position='absolute'
-                    width='100%'
-                    bottom='70px'
-                    left='0px'
-                    height="180px" >
-                    <LineChart data={totalToken}/>
-
-                    </Box>
-                        
-                    </Box>
-
-                </Box>
+               
 
                 </Box>
             
